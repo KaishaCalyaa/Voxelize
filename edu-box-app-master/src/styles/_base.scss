@@ -1,0 +1,61 @@
+// ===================================
+//          BASE STYLES
+// ===================================
+
+// Global body styling
+body {
+  background: var(--theme-bg);
+  color: var(--theme-main-text);
+}
+
+// Global content styling
+ion-content {
+  --background: var(--theme-content-bg);
+  --color: var(--theme-main-text);
+  --padding-bottom: 100px; // Space for bottom tab bar
+
+  @include desktop {
+    @include custom-scrollbar;
+  }
+}
+
+// Header styling
+ion-header {
+  ion-toolbar {
+    --background: var(--theme-bg);
+    --color: var(--theme-main-text);
+  }
+}
+
+// Footer styling
+ion-footer {
+  --background: var(--theme-bg);
+}
+
+// Common subtitle styling
+.subtitle {
+  color: var(--theme-primary);
+  font-size: 1rem;
+  display: block;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+
+  @include desktop {
+    font-size: 1.2rem;
+  }
+}
+
+// Common section title
+.section-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--theme-main-text);
+  margin-bottom: $spacing-md;
+}
+
+// Card common styles
+.card {
+  @include card-base;
+  padding: $spacing-lg;
+  margin-bottom: $spacing-md;
+}

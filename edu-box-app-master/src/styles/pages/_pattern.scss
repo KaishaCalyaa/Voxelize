@@ -1,0 +1,215 @@
+// ===================================
+//        PATTERN PAGE STYLES
+// ===================================
+// All styles scoped under .page-pattern
+
+.page-pattern {
+  ion-content {
+    --background: #f5f5f5;
+  }
+
+  // Search bar
+  .pattern-search {
+    --background: #ffffff;
+    --border-radius: #{$border-radius-md};
+    --icon-color: var(--ion-color-medium);
+    --color: #1f1f1f;
+    --placeholder-color: #9aa0a6;
+    margin: 12px 12px 0 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+
+  // Pattern list container
+  .pattern-list-container {
+    background: #f5f5f5;
+    border-radius: $border-radius-md;
+    margin: 10px 12px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    display: block;
+
+    // Sort segment
+    .pattern-sort {
+      margin: 10px 12px 6px 12px;
+      width: calc(100% - 24px);
+      border-radius: $border-radius-md;
+      --background: #e9ecef;
+
+      ion-segment-button {
+        justify-content: center;
+        text-align: center;
+        --border-radius: #{$border-radius-md};
+        --indicator-color: var(--theme-primary);
+      }
+    }
+
+    // Favorites toggle
+    .fav-toggle-item {
+      margin: 6px 12px 8px 12px;
+      padding: 6px 12px;
+      width: calc(100% - 24px);
+      border-radius: $border-radius-md;
+      background: #ffffff;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+      @include flex-center;
+
+      ion-label {
+        font-weight: 500;
+      }
+
+      ion-toggle {
+        margin-left: auto;
+      }
+    }
+
+    // Pattern list items
+    .pattern-list {
+      background: transparent;
+      padding: 0;
+
+      .pattern-item {
+        --background: #ffffff;
+        --border-color: #f0f0f0;
+        --padding-start: 12px;
+        --padding-end: 12px;
+        --inner-padding-end: 0;
+        --min-height: 72px;
+        border-left: 4px solid var(--theme-primary);
+        margin: 8px 10px;
+        border-radius: $border-radius-md;
+        @include smooth-transition(transform, 0.2s);
+
+        &:not(:last-child) {
+          border-bottom: 1px solid #f0f0f0;
+        }
+
+        &:active {
+          transform: scale(0.98);
+        }
+
+        .item-content {
+          @include flex-center;
+          width: 100%;
+          padding: 1rem;
+
+          .lead-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: $border-radius-md;
+            background: #f8f9fa;
+            @include flex-center;
+            margin-right: 16px;
+            box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.04);
+
+            ion-icon {
+              font-size: 20px;
+              color: var(--theme-primary);
+            }
+          }
+
+          .text-info {
+            flex: 1;
+            text-align: left;
+
+            .name {
+              font-weight: 600;
+              color: var(--theme-dark);
+              margin-bottom: 4px;
+            }
+
+            .duration {
+              font-size: 0.85rem;
+              color: var(--theme-text);
+            }
+          }
+        }
+
+        .status-dot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #e9ecef;
+          margin-left: 12px;
+          margin-right: 1rem;
+          @include smooth-transition(background-color, 0.3s);
+
+          &.active {
+            background: var(--theme-primary);
+            box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+          }
+        }
+
+        .end-actions {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding-right: 0.5rem;
+        }
+      }
+    }
+  }
+
+  // Play icon box styling
+  .play-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 193, 7, 0.1);
+    @include flex-center;
+    margin-right: 1rem;
+
+    .play-icon {
+      color: var(--theme-primary);
+      font-size: 1.2rem;
+    }
+  }
+
+  // Now playing panel
+  .now-playing-panel {
+    position: fixed;
+    bottom: 70px;
+    left: 1rem;
+    right: 1rem;
+    background: var(--theme-primary);
+    border-radius: $border-radius-md;
+    padding: 1rem;
+    @include flex-center;
+    justify-content: space-between;
+    color: #1f1f1f;
+    z-index: $z-index-tab-bar;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+
+    .now-playing-text {
+      .label {
+        font-size: 0.7rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.25rem;
+      }
+
+      .name {
+        font-weight: 600;
+        font-size: 1rem;
+      }
+    }
+
+    .stop-icon {
+      font-size: 1.1rem;
+      color: #ffffff;
+      background: #111111;
+      border-radius: 10px;
+      padding: 10px;
+      @include smooth-transition(transform, 0.2s);
+
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+
+  // Content padding override
+  ion-content {
+    --padding-bottom: 140px; // Space for tab bar + now playing panel
+  }
+}

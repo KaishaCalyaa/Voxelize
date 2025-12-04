@@ -1,0 +1,177 @@
+// ===================================
+//         BUTTON STYLES
+// ===================================
+
+// Layer selection buttons
+.layer-btn {
+  --border-radius: #{$border-radius-md};
+  --box-shadow: none;
+  --padding-start: 0;
+  --padding-end: 0;
+  height: 48px;
+  font-weight: 600;
+  font-size: 1rem;
+  margin: 0;
+  @include smooth-transition(all, 0.2s);
+
+  &[color="warning"] {
+    --background: var(--theme-primary);
+    --color: #000000;
+    font-weight: 700;
+  }
+
+  &[color="light"] {
+    --background: var(--theme-light);
+    --color: var(--theme-text);
+  }
+
+  &[color="dark"] {
+    --background: var(--theme-dark);
+    --color: #ffffff;
+  }
+}
+
+// Desktop layer buttons
+.layer-btn-desktop {
+  @extend .layer-btn;
+  height: 52px;
+  font-size: 1.125rem;
+}
+
+// Save pattern buttons (mobile)
+.save-pattern-btn {
+  --background: #ffffff;
+  --color: #000000;
+  --border-radius: #{$border-radius-lg};
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --padding-top: 1rem;
+  --padding-bottom: 1rem;
+  height: 56px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.5px;
+  border: 2px solid var(--theme-light);
+  margin: 0;
+  text-transform: uppercase;
+  @include smooth-transition(all, 0.2s);
+
+  &:hover {
+    --background: #f8f9fa;
+    border-color: var(--theme-primary);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+// Save pattern buttons (desktop)
+.save-pattern-btn-desktop {
+  --background: #000000;
+  --color: #ffffff;
+  --border-radius: #{$border-radius-lg};
+  --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --padding-top: 1.25rem;
+  --padding-bottom: 1.25rem;
+  height: 60px;
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  border: none;
+  margin: 0;
+  text-transform: uppercase;
+  @include smooth-transition(all, 0.2s);
+
+  &:hover {
+    --background: #{var(--theme-dark)};
+    transform: translateY(-2px);
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// Start pairing button (settings)
+.start-pairing-btn {
+  --border-radius: #{$border-radius-sm};
+  height: 48px;
+  font-weight: 600;
+  margin-top: 15px;
+  @include smooth-transition;
+}
+
+// Pattern button (home desktop)
+.pattern-btn {
+  --color: var(--theme-primary);
+  --border-radius: 20px;
+  --padding-start: 12px;
+  --padding-end: 12px;
+  height: 36px;
+  font-weight: 600;
+  text-transform: none;
+  @include smooth-transition;
+
+  ion-icon {
+    margin-right: 6px;
+    font-size: 1.1em;
+  }
+}
+
+// End play button (pattern page)
+.end-play-button {
+  --padding-start: 6px;
+  --padding-end: 6px;
+  --background: transparent;
+  --box-shadow: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(var(--theme-primary), 0.12);
+  @include flex-center;
+  @include smooth-transition(transform, 0.2s);
+
+  ion-icon {
+    color: var(--theme-primary);
+    font-size: 20px;
+  }
+
+  &:active {
+    transform: scale(0.9);
+  }
+}
+
+// Bluetooth icon states (settings)
+.bluetooth-icon {
+  font-size: 3em;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  @include smooth-transition;
+  background: rgba(220, 53, 69, 0.1);
+  color: var(--theme-danger);
+
+  body.dark-mode & {
+    background: rgba(220, 53, 69, 0.15);
+  }
+
+  &.is-connected {
+    background: rgba(40, 167, 69, 0.1);
+    color: var(--theme-success);
+
+    body.dark-mode & {
+      background: rgba(40, 167, 69, 0.15);
+    }
+  }
+
+  &.is-scanning {
+    background: rgba(255, 193, 7, 0.1);
+    color: var(--theme-primary);
+    animation: pulse 1s infinite alternate;
+
+    body.dark-mode & {
+      background: rgba(255, 193, 7, 0.15);
+    }
+  }
+}

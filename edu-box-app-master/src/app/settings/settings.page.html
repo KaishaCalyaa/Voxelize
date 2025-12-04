@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="header-title">Management</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+  <div class="page-settings">
+
+  <!-- Section Title -->
+  <p class="section-title">Pairing & Users</p>
+
+  <!-- Pairing Card -->
+  <div class="pairing-card ion-padding">
+    <div class="card-status-area">
+      <ion-icon
+        name="bluetooth"
+        class="bluetooth-icon"
+        [ngClass]="{
+          'is-connected': bluetoothStatus === 'Connected',
+          'is-scanning': bluetoothStatus === 'Scanning'
+        }">
+      </ion-icon>
+
+      <h3>{{ bluetoothStatus }}</h3>
+      <p>{{ statusMessage }}</p>
+    </div>
+
+    <ion-button
+      expand="block"
+      color="warning"
+      class="start-pairing-btn"
+      (click)="startPairing()"
+      [disabled]="bluetoothStatus === 'Scanning'">
+      Start Pairing
+    </ion-button>
+  </div>
+
+  <!-- User Section -->
+  <p class="section-title">User</p>
+
+  <ion-list lines="none" class="user-list">
+
+    <ion-item
+      class="user-item"
+      *ngFor="let user of authorizedUsers"
+      (click)="openUserSettings(user)">
+      
+      <div
+        slot="start"
+        class="status-dot"
+        [ngClass]="{
+          'owner-dot': user.status === 'owner',
+          'viewer-dot': user.status === 'viewer'
+        }">
+      </div>
+
+      <ion-label>
+        <p class="user-name">{{ user.name }}</p>
+        <p class="user-role">{{ user.role }}</p>
+      </ion-label>
+
+      <ion-icon
+        name="settings-outline"
+        slot="end"
+        class="settings-icon">
+      </ion-icon>
+    </ion-item>
+
+  </ion-list>
+
+
+  <!-- Dark Mode Toggle Section -->
+  <div class="dark-mode-toggle-section">
+    <div class="dark-mode-header">
+      <div class="dark-mode-info">
+        <h4>Dark Mode</h4>
+        <p class="dark-mode-description">Switch between light and dark appearance</p>
+      </div>
+      <ion-toggle
+        [checked]="isDarkMode"
+        (ionChange)="toggleDarkMode($event)"
+        mode="ios">
+      </ion-toggle>
+    </div>
+  </div>
+
+  </div><!-- /.page-settings -->
+</ion-content>
+
+<!-- Footer Navigation -->
+<ion-footer>
+  <ion-tab-bar slot="bottom" class="custom-tab-bar">
+
+    <!-- Control = /home -->
+    <ion-tab-button tab="home" routerLink="/home">
+      <ion-icon name="bulb-outline"></ion-icon>
+      <ion-label>Control</ion-label>
+    </ion-tab-button>
+
+    <!-- Patterns = /pattern -->
+    <ion-tab-button tab="pattern" routerLink="/pattern">
+      <ion-icon name="play-outline"></ion-icon>
+      <ion-label>Patterns</ion-label>
+    </ion-tab-button>
+
+    <!-- System = /settings -->
+    <ion-tab-button tab="settings" routerLink="/settings" class="active-tab">
+      <div class="tab-active-bg">
+        <ion-icon name="settings-outline"></ion-icon>
+        <ion-label>System</ion-label>
+      </div>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-footer>
+

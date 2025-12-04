@@ -1,0 +1,219 @@
+// ===================================
+//         HOME PAGE STYLES
+// ===================================
+// All styles scoped under .page-home
+
+.page-home {
+  // Mobile Layout
+  .mobile-layout {
+    padding: 1rem;
+  }
+
+  // Layer Selector Card
+  .layer-selector-card {
+    @include card-accent;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+
+    .d-flex {
+      margin-bottom: 1rem;
+
+      ion-icon {
+        font-size: 1.25rem;
+        margin-right: 0.5rem;
+        color: var(--theme-text);
+      }
+
+      ion-label {
+        font-size: 0.9rem;
+        color: var(--theme-text);
+
+        &.ms-auto {
+          color: var(--theme-primary);
+          font-weight: 700;
+          font-size: 1rem;
+        }
+      }
+    }
+
+    .layer-buttons {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
+    }
+  }
+
+  // XY Plane Card (LED Grid)
+  .xy-plane-card {
+    @include card-accent;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .plane-label {
+      font-size: 0.75rem;
+      color: #adb5bd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      margin-top: 1rem;
+    }
+  }
+
+  // LED Cells
+  .led-cell {
+    aspect-ratio: 1;
+    background: var(--theme-light);
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    @include smooth-transition(all, 0.2s);
+
+    &:hover {
+      background: var(--theme-border);
+      transform: scale(1.05);
+    }
+
+    &.active {
+      background: var(--theme-primary);
+      box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+    }
+  }
+
+  // Action Buttons Grid
+  .action-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .action-card:nth-child(1) ion-icon {
+      color: var(--theme-primary);
+    }
+
+    .action-card:nth-child(2) ion-icon {
+      color: var(--theme-danger);
+    }
+  }
+
+  // Desktop Layout
+  .desktop-layout {
+    padding: 2rem;
+    max-width: $breakpoint-large;
+    margin: 0 auto;
+
+    .subtitle {
+      font-size: 1.125rem;
+      margin-bottom: 2rem;
+    }
+
+    .d-flex .subtitle {
+      font-size: 1.2rem;
+      margin-bottom: 0;
+      display: block;
+    }
+  }
+
+  .desktop-container {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 2rem;
+  }
+
+  // Left Section (Desktop)
+  .left-section {
+    @include card-accent;
+    padding: 2rem;
+
+    .grid-container-desktop {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      max-width: 500px;
+    }
+
+    .plane-label-desktop {
+      font-size: 0.875rem;
+      color: #adb5bd;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: block;
+      text-align: center;
+    }
+  }
+
+  // Desktop LED Cells
+  .led-cell-desktop {
+    aspect-ratio: 1;
+    background: var(--theme-light);
+    border-radius: $border-radius-lg;
+    cursor: pointer;
+    @include smooth-transition(all, 0.2s);
+
+    &:hover {
+      background: var(--theme-border);
+      transform: scale(1.05);
+    }
+
+    &.active {
+      background: var(--theme-primary);
+      box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+    }
+  }
+
+  // Right Section (Desktop)
+  .right-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .layer-info {
+    @include card-accent;
+    padding: 1.5rem;
+
+    .current-layer-label {
+      font-size: 0.9rem;
+      color: var(--theme-text);
+      display: block;
+      margin-bottom: 1rem;
+      font-weight: 500;
+    }
+
+    .layer-buttons-desktop {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0.75rem;
+    }
+  }
+
+  .action-buttons-desktop {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .preview-section {
+    @include card-accent;
+    padding: 1.5rem;
+    flex: 1;
+    min-height: 200px;
+  }
+
+  // Save Buttons
+  .save-button-container {
+    margin-bottom: 1.5rem;
+    padding: 0 0.5rem;
+  }
+
+  .save-button-container-desktop {
+    margin: 1.5rem 0;
+  }
+}

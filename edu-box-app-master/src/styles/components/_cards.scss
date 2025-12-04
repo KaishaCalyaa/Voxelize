@@ -1,0 +1,213 @@
+// ===================================
+//         SHARED CARD STYLES
+// ===================================
+
+// Base action card (used on home page)
+.action-card {
+  @include card-base;
+  padding: 1.5rem;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid var(--theme-border);
+  @include smooth-transition(all, 0.2s);
+
+  &:hover {
+    transform: translateY(-2px);
+    border-color: var(--theme-primary);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  ion-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--theme-text);
+    @include smooth-transition(color, 0.3s);
+  }
+
+  ion-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--theme-main-text);
+    display: block;
+  }
+}
+
+// Desktop action card variant
+.action-card-desktop {
+  @include card-base;
+  padding: 1.25rem;
+  text-align: center;
+  cursor: pointer;
+  @include flex-center;
+  gap: 0.5rem;
+  @include smooth-transition(all, 0.2s);
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &.fill {
+    border: 2px solid var(--theme-primary);
+
+    ion-icon {
+      color: var(--theme-primary);
+    }
+  }
+
+  &.clear {
+    border: 2px solid var(--theme-light);
+
+    ion-icon {
+      color: var(--theme-danger);
+    }
+  }
+
+  ion-icon {
+    font-size: 1.5rem;
+    @include smooth-transition(color, 0.3s);
+  }
+
+  ion-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+}
+
+// Layer selector card
+.layer-selector-card {
+  @include card-accent;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+
+  .card-header {
+    @include flex-center;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+
+    ion-icon {
+      font-size: 1.25rem;
+      margin-right: 0.5rem;
+      color: var(--theme-text);
+    }
+
+    ion-label {
+      font-size: 0.9rem;
+      color: var(--theme-text);
+
+      &.ms-auto {
+        margin-left: auto;
+        color: var(--theme-primary);
+        font-weight: 700;
+        font-size: 1rem;
+      }
+    }
+  }
+
+  .layer-buttons {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+  }
+}
+
+// XY Plane card
+.xy-plane-card {
+  @include card-accent;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+
+  .grid-container,
+  .grid-container-desktop {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+
+    @include desktop {
+      gap: 1rem;
+      max-width: 500px;
+    }
+  }
+
+  .plane-label,
+  .plane-label-desktop {
+    font-size: 0.75rem;
+    color: #adb5bd;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-top: 1rem;
+
+    @include desktop {
+      font-size: 0.875rem;
+      text-align: center;
+    }
+  }
+}
+
+// LED cells
+.led-cell,
+.led-cell-desktop {
+  aspect-ratio: 1;
+  background: var(--theme-light);
+  border-radius: $border-radius-md;
+  cursor: pointer;
+  @include smooth-transition(all, 0.2s);
+
+  &:hover {
+    background: var(--theme-border);
+    transform: scale(1.05);
+  }
+
+  &.active {
+    background: var(--theme-primary);
+    box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+  }
+
+  @include desktop {
+    border-radius: $border-radius-lg;
+  }
+}
+
+// Pairing card (settings page)
+.pairing-card {
+  background: var(--theme-card-bg);
+  border-radius: $border-radius-md;
+  border-top: 4px solid var(--theme-danger);
+  padding-bottom: 25px !important;
+  margin: 0 16px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+  body.dark-mode & {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .card-status-area {
+    text-align: center;
+    padding-top: 20px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 600;
+    color: var(--theme-main-text);
+  }
+
+  p {
+    margin: 5px 0 20px;
+    font-size: 0.9em;
+    color: var(--theme-secondary-text);
+  }
+}

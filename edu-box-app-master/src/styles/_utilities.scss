@@ -1,0 +1,62 @@
+// ===================================
+//        UTILITY CLASSES
+// ===================================
+
+// Spacing Utilities
+.me-2 { margin-right: $spacing-sm; }
+.ms-auto { margin-left: auto; }
+.mb-3 { margin-bottom: $spacing-md; }
+.mt-2 { margin-top: $spacing-sm; }
+.mt-3 { margin-top: $spacing-md; }
+
+// Display Utilities
+.d-flex { display: flex; }
+.d-block { display: block; }
+.d-none { display: none; }
+
+// Flexbox Utilities
+.align-items-center { align-items: center; }
+.justify-content-center { justify-content: center; }
+.justify-content-between { justify-content: space-between; }
+.flex-column { flex-direction: column; }
+
+// Text Utilities
+.ion-text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+// Theme-aware text colors
+.text-primary { color: var(--theme-primary); }
+.text-dark { color: var(--theme-dark); }
+.text-light { color: var(--theme-text); }
+.text-success { color: var(--theme-success); }
+.text-danger { color: var(--theme-danger); }
+
+// Font Weight Utilities
+.fw-bold { font-weight: 600; }
+.fw-bolder { font-weight: 700; }
+.fw-normal { font-weight: 400; }
+
+// Responsive Layout Utilities
+.mobile-layout {
+  display: block;
+
+  @include desktop {
+    display: none;
+  }
+}
+
+.desktop-layout {
+  display: none;
+
+  @include desktop {
+    display: block;
+  }
+}
+
+// Cursor Utilities
+.cursor-pointer { cursor: pointer; }
+
+// Overflow Utilities
+.overflow-hidden { overflow: hidden; }
+.overflow-auto { overflow: auto; }

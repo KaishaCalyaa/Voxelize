@@ -24,7 +24,7 @@
       <div class="layer-buttons">
         <ion-button 
           *ngFor="let layer of layers" 
-          [color]="layer === currentLayer ? 'warning' : 'light'" 
+          [color]="layer === currentLayer ? 'primary' : 'light'" 
           (click)="selectLayer(layer)"
           class="layer-btn"
         >
@@ -90,7 +90,7 @@
           <div class="layer-buttons-desktop">
             <ion-button 
               *ngFor="let layer of layers" 
-              [color]="layer === currentLayer ? 'warning' : 'dark'" 
+              [color]="layer === currentLayer ? 'primary' : 'dark'" 
               (click)="selectLayer(layer)"
               class="layer-btn-desktop"
               [class.active]="layer === currentLayer"

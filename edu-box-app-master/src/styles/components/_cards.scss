@@ -172,7 +172,7 @@
 
   &.active {
     background: var(--theme-primary);
-    box-shadow: 0 0 10px rgba(255, 193, 7, 0.4);
+    box-shadow: 0 0 10px rgba(33, 150, 243, 0.6);
   }
 
   @include desktop {

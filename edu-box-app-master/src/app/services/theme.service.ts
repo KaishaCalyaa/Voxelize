@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 
-export type ThemeMode = 'edubox';
+export type ThemeMode = 'voxelize';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ThemeService {
-  private currentTheme: ThemeMode = 'edubox';
+  private currentTheme: ThemeMode = 'voxelize';
   private isDarkModeEnabled: boolean = false;
 
   constructor() {
-    // Always set to edubox theme
-    this.setTheme('edubox');
+    // Always set to voxelize theme
+    this.setTheme('voxelize');
 
     // Load saved dark mode preference from localStorage
     const savedDarkMode = localStorage.getItem('app-dark-mode');
@@ -22,13 +22,13 @@ export class ThemeService {
 
   /**
    * Set the application theme
-   * @param theme - The theme to apply ('edubox')
+   * @param theme - The theme to apply ('voxelize')
    */
   setTheme(theme: ThemeMode): void {
     this.currentTheme = theme;
 
     // Remove existing theme classes
-    document.body.classList.remove('theme-edubox');
+    document.body.classList.remove('theme-voxelize');
 
     // Add new theme class
     document.body.classList.add(`theme-${theme}`);
@@ -60,7 +60,7 @@ export class ThemeService {
    * @returns The user-friendly name of the current theme
    */
   getThemeDisplayName(): string {
-    return 'EDUBOX';
+    return 'VOXELIZE';
   }
 
   /**

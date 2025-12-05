@@ -166,12 +166,12 @@
   }
 
   &.is-scanning {
-    background: rgba(255, 193, 7, 0.1);
+    background: rgba(33, 150, 243, 0.1);
     color: var(--theme-primary);
     animation: pulse 1s infinite alternate;
 
     body.dark-mode & {
-      background: rgba(255, 193, 7, 0.15);
+      background: rgba(33, 150, 243, 0.15);
     }
   }
 }

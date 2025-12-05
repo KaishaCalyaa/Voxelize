@@ -4,14 +4,14 @@
 // Enables dynamic theme switching at runtime
 
 :root {
-  // Default to EDUBOX theme (Light Mode)
-  --theme-primary: #{$edubox-primary};
-  --theme-dark: #{$edubox-dark};
-  --theme-light: #{$edubox-light};
-  --theme-border: #{$edubox-border};
-  --theme-text: #{$edubox-text};
-  --theme-success: #{$edubox-success};
-  --theme-danger: #{$edubox-danger};
+  // Default to VOXELIZE theme (Light Mode)
+  --theme-primary: #{$voxelize-primary};
+  --theme-dark: #{$voxelize-dark};
+  --theme-light: #{$voxelize-light};
+  --theme-border: #{$voxelize-border};
+  --theme-text: #{$voxelize-text};
+  --theme-success: #{$voxelize-success};
+  --theme-danger: #{$voxelize-danger};
 
   // Light mode specific colors
   --theme-bg: #ffffff;
@@ -21,15 +21,15 @@
   --theme-secondary-text: #6c757d;
 }
 
-// EDUBOX theme class (Light Mode)
-body.theme-edubox {
-  --theme-primary: #{$edubox-primary};
-  --theme-dark: #{$edubox-dark};
-  --theme-light: #{$edubox-light};
-  --theme-border: #{$edubox-border};
-  --theme-text: #{$edubox-text};
-  --theme-success: #{$edubox-success};
-  --theme-danger: #{$edubox-danger};
+// VOXELIZE theme class (Light Mode)
+body.theme-voxelize {
+  --theme-primary: #{$voxelize-primary};
+  --theme-dark: #{$voxelize-dark};
+  --theme-light: #{$voxelize-light};
+  --theme-border: #{$voxelize-border};
+  --theme-text: #{$voxelize-text};
+  --theme-success: #{$voxelize-success};
+  --theme-danger: #{$voxelize-danger};
 
   // Light mode colors
   --theme-bg: #ffffff;
@@ -42,7 +42,7 @@ body.theme-edubox {
 // ===================================
 //         DARK MODE OVERRIDE
 // ===================================
-// Dark mode works with EDUBOX theme
+// Dark mode works with VOXELIZE theme
 
 body.dark-mode {
   // Dark mode backgrounds
@@ -57,7 +57,7 @@ body.dark-mode {
   --theme-light: #3d3d3d;
 
   // Keep theme-specific primary colors but adjust for dark background visibility
-  &.theme-edubox {
-    --theme-primary: #{lighten($edubox-primary, 5%)};
+  &.theme-voxelize {
+    --theme-primary: #{lighten($voxelize-primary, 5%)};
   }
 }

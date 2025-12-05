@@ -30,16 +30,15 @@ export class HomePage {
 
   // Theme properties
   headerIcon: string = 'cube';
-  themeName: string = 'EDUBOX';
+  themeName: string = 'VOXELIZE';
 
   constructor(
     private router: Router,
     private toastController: ToastController,
     private themeService: ThemeService
   ) {
-    // Theme is always EDUBOX
-    this.headerIcon = 'cube';
-    this.themeName = 'EDUBOX';
+    // Theme is always VOXELIZE
+    this.themeName = 'VOXELIZE';
   }
 
   /**

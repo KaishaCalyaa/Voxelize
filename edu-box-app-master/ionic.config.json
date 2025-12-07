@@ -1,7 +1,0 @@
-{
-  "name": "EduBox",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "angular"
-}

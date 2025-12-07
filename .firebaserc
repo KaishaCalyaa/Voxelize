@@ -3,6 +3,14 @@
     "default": "edubox-led",
     "voxelize": "apkchatbackned"
   },
-  "targets": {},
+  "targets": {
+    "edubox-led": {
+      "hosting": {
+        "voxelize-led": [
+          "voxelize-led"
+        ]
+      }
+    }
+  },
   "etags": {}
 }

@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "target": "voxelize-led",
     "public": "www",
     "ignore": [
       "firebase.json",

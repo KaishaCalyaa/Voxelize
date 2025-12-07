@@ -8,7 +8,7 @@ export const environment = {
     projectId: "edubox-led",
     storageBucket: "edubox-led.firebasestorage.app",
     messagingSenderId: "655047379924",
-    appId: "1:655047379924:web:19e389c118ed0718af2441",
-    measurementId: "G-RLMDGR0Y70"
+    appId: "1:655047379924:web:6c525f67bd2d41e3af2441",
+    measurementId: "G-XCP6PJZN17"
   }
 };

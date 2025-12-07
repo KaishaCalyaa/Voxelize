@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { AuthService } from '../auth.service';
 
@@ -22,7 +22,8 @@ export class RegisterPage implements OnInit {
     private authService: AuthService,
     private router: Router,
     private alertController: AlertController,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private route: ActivatedRoute
   ) {
     // Penggunaan FormBuilder membutuhkan ReactiveFormsModule di AuthModule
     this.registerForm = this.formBuilder.group({
@@ -146,5 +147,22 @@ export class RegisterPage implements OnInit {
     }
   }
 
-  ngOnInit() {}
+  profileImageUrl: string = '';
+
+  ngOnInit() {
+    // Check for query parameters
+    this.route.queryParams.subscribe(params => {
+      if (params['email']) {
+        this.registerForm.patchValue({
+          email: params['email'],
+          name: params['name'] || ''
+        });
+        
+        // Store the Google profile picture URL if available
+        if (params['photoURL']) {
+          this.profileImageUrl = params['photoURL'];
+        }
+      }
+    });
+  }
 }

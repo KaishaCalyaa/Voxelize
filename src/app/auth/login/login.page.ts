@@ -52,7 +52,7 @@ export class LoginPage implements OnInit {
     }
 
     const loading = await this.loadingCtrl.create({
-      message: 'Logging in...',
+      message: 'Sedang masuk...',
     });
     await loading.present();
 
@@ -63,22 +63,23 @@ export class LoginPage implements OnInit {
       if (user) {
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
         this.router.navigateByUrl(returnUrl, { replaceUrl: true });
-      } else {
-        throw new Error('Login failed. Please check your credentials.');
       }
     } catch (error: any) {
-      let errorMessage = 'An error occurred during login';
+      console.error('Login error:', error);
       
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-        errorMessage = 'Invalid email or password';
+      let errorMessage = 'Terjadi kesalahan saat login';
+      if (error.code === 'auth/account-not-registered') {
+        errorMessage = 'Email belum terdaftar. Silakan daftar terlebih dahulu.';
+      } else if (error.code === 'auth/wrong-credentials') {
+        errorMessage = 'Email atau password salah. Silakan coba lagi.';
       } else if (error.code === 'auth/too-many-requests') {
-        errorMessage = 'Too many failed login attempts. Please try again later.';
-      } else if (error.code) {
+        errorMessage = 'Terlalu banyak percobaan. Silakan coba lagi nanti.';
+      } else if (error.message) {
         errorMessage = error.message;
       }
       
       const alert = await this.alertCtrl.create({
-        header: 'Login Failed',
+        header: 'Gagal Masuk',
         message: errorMessage,
         buttons: ['OK']
       });
@@ -163,6 +164,8 @@ export class LoginPage implements OnInit {
       this.router.navigateByUrl(returnUrl, { replaceUrl: true });
     } catch (error: any) {
       console.error('Google sign in error:', error);
+      
+      // Handle errors
       let errorMessage = 'An error occurred during Google Sign-In';
       
       if (error.code) {

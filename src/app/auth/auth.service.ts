@@ -3,13 +3,13 @@ import {
   Auth, 
   createUserWithEmailAndPassword, 
   signInWithEmailAndPassword, 
-  signOut, 
+  signOut,
   User as FirebaseUser,
   GoogleAuthProvider,
   signInWithPopup,
   UserCredential
 } from '@angular/fire/auth';
-import { Firestore, doc, setDoc } from '@angular/fire/firestore';
+import { Firestore, doc, setDoc, getDoc } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
@@ -45,9 +45,15 @@ export class AuthService {
   async login(email: string, password: string) {
     try {
       const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
-      // The auth state change listener will automatically update the user
       return userCredential.user;
-    } catch (error) {
+    } catch (error: any) {
+      if (error.code === 'auth/user-not-found') {
+        throw { code: 'auth/account-not-registered', message: 'Email belum terdaftar' };
+      } else if (error.code === 'auth/wrong-password' || error.code === 'auth/invalid-credential') {
+        throw { code: 'auth/wrong-credentials', message: 'Email atau password salah' };
+      } else if (error.code === 'auth/too-many-requests') {
+        throw { code: 'auth/too-many-requests', message: 'Terlalu banyak percobaan. Silakan coba lagi nanti.' };
+      }
       throw error;
     }
   }
@@ -80,31 +86,45 @@ export class AuthService {
   async signInWithGoogle() {
     try {
       const provider = new GoogleAuthProvider();
-      const result = await signInWithPopup(this.auth, provider);
       
-      // Check if the user is new or existing
-      const isNewUser = result.user.metadata.creationTime === result.user.metadata.lastSignInTime;
+      // Set custom parameters for faster sign-in
+      provider.setCustomParameters({
+        prompt: 'select_account'  // Always show account picker for faster selection
+      });
       
-      if (isNewUser) {
-        // If it's a new user, create their document in Firestore
-        await this.createUserDocument(
-          result.user, 
-          result.user.displayName || 'Google User',
-          result.user.photoURL || ''
-        );
-      } else {
-        // Update last login time for existing users
-        const userRef = doc(this.firestore, `users/${result.user.uid}`);
-        await setDoc(userRef, {
-          lastLoginAt: new Date(),
-          photoURL: result.user.photoURL || ''
-        }, { merge: true });
-      }
+      // Add timeout to prevent hanging
+      const timeoutPromise = new Promise((_, reject) => 
+        setTimeout(() => reject(new Error('Sign in timed out. Please try again.')), 30000)
+      );
+      
+      // Race between sign-in and timeout
+      const result = await Promise.race([
+        signInWithPopup(this.auth, provider),
+        timeoutPromise
+      ]) as UserCredential;
+      
+      // Process user data in the background
+      this.createUserDocument(
+        result.user,
+        result.user.displayName || 'Google User',
+        result.user.photoURL || ''
+      ).catch(e => console.error('Background user doc update failed:', e));
       
       return result.user;
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('Error signing in with Google:', error);
-      throw error;
+      
+      // Handle different error types
+      if (error instanceof Error) {
+        if ('code' in error && error.code === 'auth/popup-closed-by-user') {
+          throw new Error('Sign in was cancelled');
+        } else if (error.message.includes('timed out')) {
+          throw new Error('Sign in took too long. Please check your internet connection and try again.');
+        }
+      }
+      
+      // For other unknown errors
+      throw new Error('An unexpected error occurred during sign in');
     }
   }
 }

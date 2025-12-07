@@ -4,21 +4,30 @@
 // All styles scoped under .page-pattern
 
 .page-pattern {
-  --ion-background-color: #ffffff;
-  --ion-text-color: #000000;
+  --ion-background-color: var(--ion-background-color, #ffffff);
+  --ion-text-color: var(--ion-text-color, #000000);
+  --item-background: #ffffff;
+  --item-text: #000000;
+  --border-color: #e0e0e0;
+  --shadow-color: rgba(0, 0, 0, 0.05);
+  --search-bg: #f8f9fa;
+  --search-border: #e0e0e0;
+  --search-icon: #5f6368;
   
   ion-content {
-    --background: #f5f7fa; // Light gray background for content
+    --background: var(--ion-background-color, #f5f7fa);
     --padding-bottom: 140px; // Space for tab bar + now playing panel
   }
   
   .pattern-container {
-    background: #ffffff;
+    background: var(--item-background);
+    color: var(--ion-text-color);
     border-radius: 16px;
     margin: 16px;
     margin-top: 0;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 12px var(--shadow-color);
     overflow: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   // Search bar styles
@@ -70,13 +79,15 @@
 
   // Container for sort, favorite controls, and the list
   .pattern-list-container {
-    background: #ffffff; /* Explicit white background for light mode */
+    background: var(--item-background);
+    color: var(--ion-text-color);
     border-radius: 0;
     margin: 0;
     box-shadow: none;
     overflow: visible;
     display: block;
     padding: 16px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 
     // Sort segment
     .pattern-sort {
@@ -274,19 +285,24 @@
     }
   }
 }
-
-// ===================================
 //        DARK THEME OVERRIDES
 // ===================================
 // Dark theme overrides when the dark theme is active
 [data-theme="dark"] .page-pattern {
   --ion-background-color: #121212;
   --ion-text-color: #ffffff;
-    
+  --item-background: #1e1e1e;
+  --item-text: #ffffff;
+  --border-color: #333;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --search-bg: #2a2a2a;
+  --search-border: #444;
+  --search-icon: #888;
+
   ion-content {
     --background: #1a1a1a; // Darker background for content
   }
-    
+
   .pattern-container {
     background: #1e1e1e;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
@@ -294,15 +310,15 @@
 
   // Search bar dark theme
   .pattern-search {
-    --background: #1e1e1e;
-    --color: #ffffff;
-    --placeholder-color: #888;
-    --icon-color: #888;
+    --background: var(--item-background);
+    --color: var(--ion-text-color);
+    --placeholder-color: var(--search-icon);
+    --icon-color: var(--search-icon);
 
     .searchbar-input-container {
-      background: #1e1e1e !important;
-      border-color: #333;
-      
+      background: var(--search-bg) !important;
+      border-color: var(--search-border);
+
       &:hover, &:focus-within {
         background: #2a2a2a !important;
         border-color: var(--ion-color-primary);
@@ -340,10 +356,18 @@
     // Pattern list items dark theme
     .pattern-list {
       .pattern-item {
-        --background: #252525;
-        --border-color: #333;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        
+        --background: var(--item-background);
+        --color: var(--ion-text-color);
+        --border-color: var(--border-color);
+        --box-shadow: 0 2px 8px var(--shadow-color);
+        border: 1px solid var(--border-color);
+        border-radius: 12px;
+        margin-bottom: 12px;
+        --padding-start: 0;
+        --inner-padding-end: 12px;
+        --min-height: 72px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, color 0.3s ease;
+
         &:active {
           background-color: #2d2d2d;
           transform: translateY(1px);

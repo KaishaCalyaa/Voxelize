@@ -1,0 +1,396 @@
+// ===================================
+//        PATTERN PAGE STYLES
+// ===================================
+// All styles scoped under .page-pattern
+
+.page-pattern {
+  --ion-background-color: #ffffff;
+  --ion-text-color: #000000;
+  
+  ion-content {
+    --background: #f5f7fa; // Light gray background for content
+    --padding-bottom: 140px; // Space for tab bar + now playing panel
+  }
+  
+  .pattern-container {
+    background: #ffffff;
+    border-radius: 16px;
+    margin: 16px;
+    margin-top: 0;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+  }
+
+  // Search bar styles
+  .pattern-search {
+    --background: #ffffff;
+    --border-radius: 12px;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    --placeholder-color: #9aa0a6;
+    --color: #202124;
+    --icon-color: #5f6368;
+    --placeholder-opacity: 1;
+    --padding-start: 16px;
+    --padding-end: 16px;
+    --padding-top: 10px;
+    --padding-bottom: 10px;
+    margin: 0 0 16px 0;
+    padding: 8px 0;
+    background: transparent;
+    
+    .searchbar-input-container {
+      background: #f8f9fa !important;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) !important;
+      transition: all 0.2s ease-in-out;
+      min-height: 48px;
+      padding-left: 48px;
+      
+      &:hover, &:focus-within {
+        box-shadow: 0 2px 8px rgba(0, 123, 255, 0.15) !important;
+        border-color: var(--ion-color-primary);
+      }
+    }
+    
+    .searchbar-search-icon {
+      width: 20px;
+      height: 20px;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      position: absolute;
+      color: var(--icon-color);
+    }
+    
+    .searchbar-clear-button {
+      right: 16px;
+    }
+  }
+
+  // Container for sort, favorite controls, and the list
+  .pattern-list-container {
+    background: #ffffff; /* Explicit white background for light mode */
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+    overflow: visible;
+    display: block;
+    padding: 16px;
+
+    // Sort segment
+    .pattern-sort {
+      margin: 0 0 16px 0;
+      width: 100%;
+      border-radius: 12px;
+      --background: #f5f7fa;
+      padding: 4px;
+
+      ion-segment-button {
+        justify-content: center;
+        text-align: center;
+        --border-radius: 8px;
+        --indicator-color: var(--ion-color-primary);
+        --color: #5f6368;
+        --color-checked: #ffffff;
+        --background-checked: var(--ion-color-primary);
+        --border-width: 0;
+        --padding-top: 12px;
+        --padding-bottom: 12px;
+        min-height: 40px;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+
+        &.segment-button-checked {
+          font-weight: 600;
+        }
+      }
+    }
+
+    // Favorites toggle
+    .fav-toggle-item {
+      --background: transparent;
+      --padding-start: 4px;
+      --min-height: 50px;
+      border-top: 1px solid #f0f0f0;
+      @include flex-center;
+      margin: 0;
+      width: 100%;
+
+      ion-label {
+        font-weight: 500;
+        color: #333333; // Hardcoded darker text for better readability
+      }
+
+      ion-toggle {
+        margin-left: auto;
+      }
+    }
+
+    // Pattern list items - now inside the padded container
+    .pattern-list {
+      background: transparent;
+      padding: 8px 0;
+      margin: 0;
+
+      .pattern-item {
+        --background: #ffffff;
+        --border-color: #f0f0f0;
+        --padding-start: 16px;
+        --padding-end: 16px;
+        --inner-padding-end: 0;
+        --min-height: 76px;
+        border-left: 4px solid var(--ion-color-primary);
+        margin: 0 0 12px 0;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        transition: all 0.2s ease-in-out;
+        border: 1px solid #f0f0f0;
+        @include smooth-transition(background-color, 0.2s);
+
+        &:active {
+          background-color: #f8f9fa;
+          transform: translateY(1px);
+          box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        .item-content {
+          @include flex-center;
+          width: 100%;
+          padding: 12px 0;
+
+          .lead-badge {
+            width: 44px;
+            height: 44px;
+            border-radius: $border-radius-md;
+            background: #f0f2f5;
+            @include flex-center;
+            margin-right: 16px;
+            border: 1px solid #e8eaf0;
+
+            ion-icon {
+              font-size: 20px;
+              color: var(--theme-primary);
+            }
+          }
+
+          .text-info {
+            flex: 1;
+            text-align: left;
+
+            .name {
+              font-weight: 600;
+              color: var(--theme-dark);
+              margin-bottom: 4px;
+            }
+
+            .duration {
+              font-size: 0.85rem;
+              color: var(--theme-text);
+            }
+          }
+        }
+
+        .status-dot {
+          width: 12px;
+          height: 12px;
+          border-radius: 50%;
+          background: #e9ecef;
+          margin-left: 12px;
+          @include smooth-transition(background-color, 0.3s);
+
+          &.active {
+            background: var(--theme-primary);
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.3);
+          }
+        }
+
+        .end-actions {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+        }
+      }
+    }
+  }
+
+  // Play icon box styling
+  .play-icon-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(33, 150, 243, 0.15);
+    @include flex-center;
+    margin-right: 1rem;
+
+    .play-icon {
+      color: var(--theme-primary);
+      font-size: 1.2rem;
+    }
+  }
+
+  // Now playing panel
+  .now-playing-panel {
+    position: fixed;
+    bottom: 70px;
+    left: 1rem;
+    right: 1rem;
+    background: var(--theme-primary);
+    border-radius: $border-radius-md;
+    padding: 1rem;
+    @include flex-center;
+    justify-content: space-between;
+    color: #ffffff;
+    z-index: $z-index-tab-bar;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+
+    .now-playing-text {
+      .label {
+        font-size: 0.7rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.25rem;
+        font-weight: 500;
+      }
+
+      .name {
+        font-weight: 600;
+        font-size: 1rem;
+      }
+    }
+
+    .stop-icon {
+      font-size: 1.1rem;
+      color: var(--theme-primary);
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 10px;
+      @include smooth-transition(transform, 0.2s);
+
+      &:active {
+        transform: scale(0.9);
+      }
+    }
+  }
+}
+
+// ===================================
+//        DARK THEME OVERRIDES
+// ===================================
+// Dark theme overrides when the dark theme is active
+[data-theme="dark"] .page-pattern {
+  --ion-background-color: #121212;
+  --ion-text-color: #ffffff;
+    
+  ion-content {
+    --background: #1a1a1a; // Darker background for content
+  }
+    
+  .pattern-container {
+    background: #1e1e1e;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  // Search bar dark theme
+  .pattern-search {
+    --background: #1e1e1e;
+    --color: #ffffff;
+    --placeholder-color: #888;
+    --icon-color: #888;
+
+    .searchbar-input-container {
+      background: #1e1e1e !important;
+      border-color: #333;
+      
+      &:hover, &:focus-within {
+        background: #2a2a2a !important;
+        border-color: var(--ion-color-primary);
+        box-shadow: 0 0 0 2px rgba(var(--ion-color-primary-rgb), 0.2) !important;
+      }
+    }
+  }
+
+  // Container for pattern list in dark mode
+  .pattern-list-container {
+    background: #1e1e1e;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+
+    // Sort segment dark theme
+    .pattern-sort {
+      --background: #2a2a2a;
+      
+      ion-segment-button {
+        --color: #aaa;
+        --color-checked: #fff;
+        --background-checked: var(--ion-color-primary);
+        --indicator-color: transparent;
+      }
+    }
+
+    // Favorites toggle dark theme
+    .fav-toggle-item {
+      border-top-color: #333;
+      
+      ion-label {
+        color: #e1e1e1;
+      }
+    }
+
+    // Pattern list items dark theme
+    .pattern-list {
+      .pattern-item {
+        --background: #252525;
+        --border-color: #333;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        
+        &:active {
+          background-color: #2d2d2d;
+          transform: translateY(1px);
+        }
+
+        .item-content {
+          .lead-badge {
+            background: #2d2d2d;
+            border-color: #3a3a3a;
+          }
+
+          .text-info {
+            .name {
+              color: #ffffff;
+            }
+
+            .duration {
+              color: #aaa;
+            }
+          }
+        }
+
+        .status-dot {
+          background: #3a3a3a;
+          
+          &.active {
+            background: var(--ion-color-primary);
+            box-shadow: 0 0 0 3px rgba(var(--ion-color-primary-rgb), 0.3);
+          }
+        }
+      }
+    }
+  }
+
+  // Play icon box dark theme
+  .play-icon-box {
+    background: rgba(var(--ion-color-primary-rgb), 0.2);
+  }
+
+  // Now playing panel dark theme
+  .now-playing-panel {
+    background: var(--theme-primary);
+    color: #ffffff;
+    
+    .stop-icon {
+      color: var(--theme-primary);
+      background: #ffffff;
+    }
+  }
+}

@@ -1,0 +1,338 @@
+// ===================================
+//       SETTINGS PAGE STYLES
+// ===================================
+// All styles scoped under .page-settings
+
+.page-settings {
+  ion-content {
+    --background: var(--theme-content-bg);
+  }
+
+  ion-toolbar {
+    --background: var(--theme-bg);
+    --border-color: transparent;
+  }
+
+  .header-title {
+    font-weight: 700;
+    color: var(--theme-main-text);
+  }
+
+  .section-title {
+    font-size: 1em;
+    font-weight: 500;
+    color: var(--theme-main-text);
+    margin: 10px 0;
+    padding-left: 16px;
+  }
+
+  // Pairing Card is in _cards.scss as shared component
+
+  // User Card Section
+  .user-card {
+    background: var(--theme-card-bg);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 0 16px 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--theme-border);
+    overflow: hidden;
+    
+    .user-header {
+      position: relative;
+      text-align: center;
+      padding: 16px 0;
+      margin-bottom: 16px;
+      border-bottom: 1px dashed var(--theme-border);
+      
+      .user-avatar {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 16px;
+        border-radius: 50%;
+        background: var(--ion-color-light);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border: 3px solid var(--theme-border);
+        
+        ion-icon {
+          font-size: 80px;
+          color: var(--ion-color-medium);
+        }
+        
+        .avatar-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      
+      .user-name {
+        font-size: 1.5em;
+        font-weight: 700;
+        margin: 12px 0 4px;
+        color: var(--theme-main-text);
+      }
+      
+      .user-email {
+        font-size: 0.95em;
+        color: var(--ion-color-medium);
+        margin-bottom: 8px;
+        word-break: break-all;
+      }
+      
+      .user-role {
+        display: inline-block;
+        background: rgba(var(--ion-color-primary-rgb), 0.1);
+        color: var(--ion-color-primary);
+        padding: 4px 16px;
+        border-radius: 20px;
+        font-size: 0.85em;
+        font-weight: 600;
+        margin-bottom: 16px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      
+      .edit-btn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        --padding-start: 8px;
+        --padding-end: 8px;
+        --color: var(--ion-color-medium);
+      }
+    }
+    
+    .user-details {
+      .detail-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--theme-border);
+        
+        &:last-child {
+          border-bottom: none;
+        }
+        
+        .detail-label {
+          display: flex;
+          align-items: center;
+          color: var(--ion-color-medium);
+          font-size: 0.9em;
+          
+          ion-icon {
+            margin-right: 8px;
+            font-size: 1.1em;
+          }
+        }
+        
+        .detail-value {
+          font-weight: 500;
+          color: var(--theme-main-text);
+          text-align: right;
+          
+          &.status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+            font-size: 0.75em;
+            padding: 5px 14px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            
+            &.admin {
+              background: rgba(var(--ion-color-primary-rgb), 0.1);
+              color: var(--ion-color-primary);
+              border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+            }
+            
+            &.owner {
+              background: rgba(var(--ion-color-success-rgb), 0.1);
+              color: var(--ion-color-success);
+              border: 1px solid rgba(var(--ion-color-success-rgb), 0.2);
+            }
+            
+            &.viewer {
+              background: rgba(var(--ion-color-medium-rgb), 0.1);
+              color: var(--ion-color-medium);
+              border: 1px solid rgba(var(--ion-color-medium-rgb), 0.2);
+            }
+            
+            ion-icon {
+              margin-right: 6px;
+              font-size: 1.1em;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .authorized-header-item {
+    --background: transparent;
+    --padding-start: 0;
+    --inner-padding-end: 0;
+    --min-height: 40px;
+    margin-top: 15px;
+
+    .users-icon-container {
+      @include flex-center;
+
+      .users-icon {
+        font-size: 1.4em;
+        margin-right: 8px;
+        color: var(--theme-main-text);
+      }
+
+      ion-label {
+        font-size: 1em;
+        font-weight: 600;
+        color: var(--theme-main-text);
+      }
+    }
+
+    .add-user-icon {
+      font-size: 1.4em;
+      color: var(--theme-secondary-text);
+    }
+  }
+
+
+
+  .settings-icon {
+    font-size: 1.4em;
+    color: var(--theme-secondary-text);
+  }
+  
+  // Status Description
+  .status-description {
+    display: flex;
+    align-items: center;
+    background: rgba(var(--ion-color-light-rgb), 0.3);
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-top: 12px;
+    font-size: 0.85em;
+    color: var(--ion-color-medium);
+    line-height: 1.4;
+    border: 1px dashed var(--theme-border);
+    
+    ion-icon {
+      margin-right: 8px;
+      color: var(--ion-color-primary);
+      font-size: 1.2em;
+      flex-shrink: 0;
+    }
+    
+    @media (prefers-color-scheme: dark) {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+  
+  // User Role Badge
+  .user-role {
+    display: inline-block;
+    background: rgba(var(--ion-color-primary-rgb), 0.1);
+    color: var(--ion-color-primary);
+    padding: 4px 16px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: 600;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border: 1px solid rgba(var(--ion-color-primary-rgb), 0.2);
+  }
+
+  // Status Dot
+  .status-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 16px;
+    position: relative;
+    flex-shrink: 0;
+    align-self: center;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: transparent;
+      transition: all 0.2s ease;
+    }
+
+    &.owner-dot {
+      background: var(--theme-success);
+      box-shadow: 0 0 0 2px rgba(var(--ion-color-success-rgb), 0.2);
+    }
+
+    &.viewer-dot {
+      background: var(--theme-secondary-text);
+      border: 1px solid var(--theme-border);
+      box-shadow: 0 0 0 2px rgba(var(--ion-color-medium-rgb), 0.1);
+    }
+  }
+
+
+  // Dark Mode Toggle Section
+  .dark-mode-toggle-section {
+    margin: 20px 16px;
+    padding: 16px;
+    background: var(--theme-card-bg);
+    border-radius: $border-radius-md;
+    border: 1px solid var(--theme-border);
+
+    .dark-mode-header {
+      @include flex-center;
+      justify-content: space-between;
+      gap: 16px;
+
+      .dark-mode-info {
+        flex: 1;
+
+        h4 {
+          margin: 0 0 4px 0;
+          font-size: 1.1em;
+          font-weight: 600;
+          color: var(--theme-main-text);
+        }
+
+        .dark-mode-description {
+          margin: 0;
+          font-size: 0.9em;
+          color: var(--theme-secondary-text);
+        }
+      }
+
+      ion-toggle {
+        --background: var(--theme-border);
+        --background-checked: var(--theme-primary);
+        --handle-background: #ffffff;
+        --handle-background-checked: #000000;
+      }
+    }
+  }
+
+  // Footer Tab Bar
+  ion-footer {
+    padding: 0;
+
+    &::before {
+      content: none;
+    }
+  }
+}

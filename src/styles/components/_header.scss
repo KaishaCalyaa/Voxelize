@@ -1,0 +1,58 @@
+// ===================================
+//         SHARED HEADER STYLES
+// ===================================
+
+ion-header {
+  ion-toolbar {
+    --background: #ffffff;
+    --border-width: 0;
+    --min-height: #{$header-height};
+    --padding-top: 0.5rem;
+    --padding-bottom: 0.5rem;
+    --padding-start: 0.9rem;
+    --padding-end: 0.9rem;
+
+    ion-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      padding: 0 0 0 10%;
+      color: #000000;
+      text-align: left;
+      letter-spacing: 0.5px;
+
+      .text-primary {
+        color: var(--theme-primary);
+        font-weight: 800;
+        margin-right: 0.25rem;
+      }
+
+      text-shadow: none;
+    }
+  }
+
+  // Theme-colored border at bottom of header
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--theme-primary);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  }
+}
+
+// Header with shadow variant (pattern page)
+.header-with-shadow {
+  ion-toolbar {
+    box-shadow: 0 2px 4px rgba(192, 192, 192, 0.04);
+  }
+}
+
+// Header icon/logo that changes by theme
+.header-logo {
+  font-size: 1.8rem;
+  color: var(--theme-primary);
+  @include smooth-transition(color, 0.3s);
+}

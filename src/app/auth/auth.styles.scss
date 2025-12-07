@@ -1,0 +1,103 @@
+/* Shared styles for auth pages */
+.login-container,
+.register-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.logo-container {
+  text-align: center;
+  margin: 40px 0;
+  
+  .app-logo {
+    font-size: 64px;
+    color: var(--ion-color-primary);
+    margin-bottom: 16px;
+  }
+  
+  .welcome-text {
+    font-size: 24px;
+    font-weight: 700;
+    margin: 8px 0;
+    color: var(--ion-color-dark);
+  }
+  
+  .subtitle {
+    color: var(--ion-color-medium);
+    margin: 0;
+    font-size: 16px;
+  }
+}
+
+.form-container {
+  flex: 1;
+  
+  .form-item {
+    --background: #f5f5f5;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    --border-radius: 8px;
+    --highlight-color-focused: var(--ion-color-primary);
+    --highlight-color-valid: var(--ion-color-primary);
+    --highlight-color-invalid: var(--ion-color-danger);
+  }
+  
+  .error-message {
+    display: block;
+    margin: -10px 0 10px 16px;
+    font-size: 12px;
+  }
+}
+
+.forgot-password,
+.login-link,
+.register-link {
+  text-align: center;
+  margin: 16px 0;
+  
+  a {
+    color: var(--ion-color-primary);
+    text-decoration: none;
+    font-weight: 500;
+  }
+}
+
+.login-button,
+.register-button {
+  --border-radius: 8px;
+  --box-shadow: none;
+  height: 48px;
+  font-weight: 600;
+  margin: 24px 0;
+  text-transform: none;
+  font-size: 16px;
+  
+  &[disabled] {
+    --opacity: 0.7;
+  }
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .login-container,
+  .register-container {
+    justify-content: center;
+    max-width: 400px;
+  }
+  
+  .logo-container {
+    margin-bottom: 40px;
+    
+    .app-logo {
+      font-size: 80px;
+    }
+    
+    .welcome-text {
+      font-size: 28px;
+    }
+  }
+}

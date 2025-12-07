@@ -1,0 +1,112 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/auth/login"></ion-back-button>
+    </ion-buttons>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding page-register" [scrollY]="false" [scrollX]="false">
+    <div class="login-container">
+      <div class="logo-container">
+        <h1 class="app-title">VOXELIZE</h1>
+        <h3>Create Account</h3>
+      </div>
+      
+      <form [formGroup]="registerForm" (ngSubmit)="register()" class="login-form">
+        <!-- Name Field -->
+        <ion-item lines="none" class="form-item">
+          <ion-icon name="person-outline" slot="start"></ion-icon>
+          <ion-input 
+            type="text" 
+            placeholder="Full Name" 
+            formControlName="name"
+            class="custom-input"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-note *ngIf="name?.touched && name?.errors?.['required']" color="danger" class="error-note">
+          Name is required
+        </ion-note>
+
+        <!-- Email Field -->
+        <ion-item lines="none" class="form-item">
+          <ion-icon name="mail-outline" slot="start"></ion-icon>
+          <ion-input 
+            type="email" 
+            placeholder="Email" 
+            formControlName="email"
+            class="custom-input"
+            required
+          ></ion-input>
+        </ion-item>
+        <ion-note *ngIf="email?.touched && email?.errors?.['required']" color="danger" class="error-note">
+          Email is required
+        </ion-note>
+        <ion-note *ngIf="email?.touched && email?.errors?.['email']" color="danger" class="error-note">
+          Please enter a valid email
+        </ion-note>
+
+        <!-- Password Field -->
+        <ion-item lines="none" class="form-item">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input 
+            [type]="showPassword ? 'text' : 'password'" 
+            placeholder="Password" 
+            formControlName="password"
+            class="custom-input"
+            required
+          ></ion-input>
+          <ion-icon 
+            [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+            slot="end" 
+            (click)="togglePassword()" 
+            class="password-toggle"
+          ></ion-icon>
+        </ion-item>
+        <ion-note *ngIf="password?.touched && password?.errors?.['required']" color="danger" class="error-note">
+          Password is required
+        </ion-note>
+        <ion-note *ngIf="password?.touched && password?.errors?.['minlength']" color="danger" class="error-note">
+          Password must be at least 6 characters
+        </ion-note>
+
+        <!-- Confirm Password Field -->
+        <ion-item lines="none" class="form-item">
+          <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+          <ion-input 
+            [type]="showConfirmPassword ? 'text' : 'password'" 
+            placeholder="Confirm Password" 
+            formControlName="confirmPassword"
+            class="custom-input"
+            required
+          ></ion-input>
+          <ion-icon 
+            [name]="showConfirmPassword ? 'eye-off-outline' : 'eye-outline'" 
+            slot="end" 
+            (click)="toggleConfirmPassword()" 
+            class="password-toggle"
+          ></ion-icon>
+        </ion-item>
+        <ion-note *ngIf="confirmPassword?.touched && registerForm?.errors?.['mismatch']" color="danger" class="error-note">
+          Passwords do not match
+        </ion-note>
+
+        <!-- Register Button -->
+        <ion-button 
+          expand="block" 
+          type="submit" 
+          [disabled]="!registerForm.valid" 
+          class="login-button"
+        >
+          Create Account
+        </ion-button>
+      </form>
+
+      <div class="signup-section">
+        Already have an account? 
+        <a routerLink="/auth/login">Sign In</a>
+      </div>
+  </div>
+</ion-content>

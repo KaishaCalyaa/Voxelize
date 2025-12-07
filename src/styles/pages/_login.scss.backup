@@ -1,0 +1,157 @@
+// ===================================
+//         LOGIN PAGE STYLES
+// ===================================
+// All styles scoped under .page-login
+
+.page-login {
+  ion-content {
+    --background: #f5f8ff; // Light blue background for light mode
+    --color: #2c3e50; // Dark text for light mode
+  }
+
+  // Logo container
+  .logo-container {
+    text-align: center;
+    padding: 2rem 1rem 1.5rem;
+    
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin-bottom: 1rem;
+    }
+
+    .app-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+      color: var(--theme-primary);
+    }
+
+    .app-subtitle {
+      color: var(--theme-text);
+      margin: 0 0 2rem;
+      font-size: 1rem;
+    }
+  }
+
+  // Login form
+  .login-form {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin: 1rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+
+    .form-item {
+      --background: #f8f9fa;
+      --border-radius: 12px;
+      --padding-start: 12px;
+      --padding-end: 12px;
+      --min-height: 56px;
+      margin-bottom: 1rem;
+      border: 1px solid #e9ecef;
+      transition: all 0.3s ease;
+
+      &:focus-within {
+        border-color: var(--theme-primary);
+        box-shadow: 0 0 0 2px rgba(var(--theme-primary-rgb), 0.2);
+      }
+
+      ion-icon[slot="start"] {
+        color: var(--theme-primary);
+        margin-right: 12px;
+        font-size: 1.2rem;
+      }
+
+      .password-toggle {
+        color: #6c757d;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+    }
+
+    ion-button {
+      --border-radius: 12px;
+      --padding-top: 1.5rem;
+      --padding-bottom: 1.5rem;
+      --box-shadow: 0 4px 12px rgba(var(--theme-primary-rgb), 0.2);
+      margin: 1.5rem 0 1rem;
+      text-transform: none;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  // Forgot password link
+  .forgot-password {
+    text-align: right;
+    margin: 0.5rem 0 1.5rem;
+
+    a {
+      color: var(--theme-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: opacity 0.2s ease;
+
+      &:active {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  // Sign up section
+  .signup-section {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--theme-text);
+
+    a {
+      color: var(--theme-primary);
+      font-weight: 600;
+      text-decoration: none;
+      margin-left: 0.5rem;
+    }
+  }
+}
+
+// ===================================
+//        DARK THEME OVERRIDES
+// ===================================
+@media (prefers-color-scheme: dark) {
+  .page-login {
+    ion-content {
+      --background: #121a26; // Dark blue-gray background
+      --color: #e9ecef; // Light text for dark mode
+    }
+
+    .login-form {
+      background: #1e293b; // Darker blue-gray for form background
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+
+      .form-item {
+        --background: #1a2232;
+        border-color: #2d3748;
+
+        &:focus-within {
+          border-color: var(--theme-primary);
+          box-shadow: 0 0 0 2px rgba(var(--theme-primary-rgb), 0.3);
+        }
+
+        ion-input {
+          --color: #e2e8f0;
+          --placeholder-color: #94a3b8;
+        }
+
+        .password-toggle {
+          color: #94a3b8;
+        }
+      }
+    }
+
+    .forgot-password a {
+      color: #60a5fa; // Lighter blue for better visibility in dark mode
+    }
+  }
+}

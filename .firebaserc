@@ -1,0 +1,8 @@
+{
+  "projects": {
+    "default": "edubox-led",
+    "voxelize": "apkchatbackned"
+  },
+  "targets": {},
+  "etags": {}
+}

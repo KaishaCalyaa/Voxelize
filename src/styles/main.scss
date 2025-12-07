@@ -1,0 +1,31 @@
+// ===================================
+//   CENTRALIZED STYLES ENTRY POINT
+// ===================================
+// Import order matters in SCSS!
+
+// 1. Theme palettes first
+@import 'themes/voxelize';
+
+// 2. Theme manager (CSS custom properties)
+@import 'themes/theme-manager';
+
+// 3. Non-theme variables
+@import 'variables';
+
+// 4. Mixins (depend on variables)
+@import 'mixins';
+
+// 5. Base styles
+@import 'base';
+
+// 6. Utilities
+@import 'utilities';
+
+// 7. Animations
+@import 'animations';
+
+// 8. Shared components
+@import 'components';
+
+// 9. Page-specific styles last
+@import 'pages';

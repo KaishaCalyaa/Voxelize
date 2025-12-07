@@ -1,0 +1,74 @@
+<ion-content [fullscreen]="true" class="ion-padding-horizontal page-login" [scrollY]="false" [scrollX]="false">
+  <div class="login-container">
+
+    <div class="logo-container">
+      <h1 class="app-title">VOXELIZE</h1>
+      <h3>Sign in to continue</h3>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <ion-item lines="none" class="form-item">
+        <ion-icon name="mail-outline" slot="start"></ion-icon>
+        <ion-input 
+          type="email" 
+          placeholder="Email" 
+          formControlName="email"
+          class="custom-input"
+          required>
+        </ion-input>
+      </ion-item>
+      
+      <ion-note *ngIf="email?.touched && email?.errors?.['required']" color="danger" class="error-note">
+        Email is required
+      </ion-note>
+      <ion-note *ngIf="email?.touched && email?.errors?.['email']" color="danger" class="error-note">
+        Please enter a valid email
+      </ion-note>
+
+      <ion-item lines="none" class="form-item">
+        <ion-icon name="lock-closed-outline" slot="start"></ion-icon>
+        <ion-input 
+          [type]="showPassword ? 'text' : 'password'" 
+          placeholder="Password" 
+          formControlName="password"
+          class="custom-input"
+          required>
+        </ion-input>
+        <ion-icon 
+          [name]="showPassword ? 'eye-off-outline' : 'eye-outline'" 
+          slot="end" 
+          (click)="togglePassword()" 
+          class="password-toggle">
+        </ion-icon>
+      </ion-item>
+      
+      <ion-note *ngIf="password?.touched && password?.errors?.['required']" color="danger" class="error-note">
+        Password is required
+      </ion-note>
+      <ion-note *ngIf="password?.touched && password?.errors?.['minlength']" color="danger" class="error-note">
+        Password must be at least 6 characters
+      </ion-note>
+
+      <div class="forgot-password">
+        <a href="#" (click)="onForgotPassword($event)">Forgot Password?</a>
+      </div>
+
+      <ion-button type="submit" expand="block" class="ion-margin-top" [disabled]="!loginForm.valid">
+        <ion-icon slot="start" name="log-in-outline"></ion-icon>
+        Login
+      </ion-button>
+
+      <ion-button (click)="signInWithGoogle()" expand="block" fill="outline" class="google-button">
+        <ion-icon slot="start" name="logo-google"></ion-icon>
+        Sign in with Google
+      </ion-button>
+
+      <div class="signup-section ion-text-center">
+        <p class="ion-no-margin">
+          Don't have an account? 
+          <a routerLink="/auth/register" class="signup-link">Sign up</a>
+        </p>
+      </div>
+    </form>
+  </div>
+</ion-content>

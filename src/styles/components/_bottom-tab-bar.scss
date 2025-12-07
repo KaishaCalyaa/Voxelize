@@ -1,0 +1,103 @@
+// ===================================
+//         BOTTOM TAB BAR
+// ===================================
+
+.bottom-tab-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-top: 1px solid var(--theme-border);
+  padding: 0.75rem 0;
+  z-index: $z-index-tab-bar;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.08);
+
+  ion-row {
+    margin: 0;
+  }
+
+  ion-col {
+    padding: 0;
+  }
+
+  ion-button {
+    --padding-top: 0.5rem;
+    --padding-bottom: 0.5rem;
+    --box-shadow: none;
+    height: auto;
+    flex-direction: column;
+    margin: 0;
+
+    ion-icon {
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+      color: var(--theme-text);
+      @include smooth-transition(color, 0.3s);
+    }
+
+    ion-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--theme-text);
+      @include smooth-transition(color, 0.3s);
+    }
+
+    &.tab-button-active {
+      ion-icon,
+      ion-label {
+        color: var(--theme-primary);
+      }
+    }
+  }
+}
+
+// Settings page tab bar variant
+.custom-tab-bar {
+  --background: var(--theme-bg);
+  border-top: 1px solid var(--theme-border);
+  height: $tab-bar-height;
+  padding-top: 5px;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+ion-tab-button {
+  --color: var(--theme-secondary-text);
+  color: var(--theme-secondary-text);
+
+  ion-icon {
+    font-size: 1.5em;
+    color: var(--theme-secondary-text);
+  }
+
+  ion-label {
+    font-size: 0.75em;
+    color: var(--theme-secondary-text);
+  }
+
+  &.active-tab {
+    flex: 1.2;
+
+    .tab-active-bg {
+      background: var(--theme-primary);
+      color: #000000;
+      width: 80%;
+      height: 55px;
+      border-radius: $border-radius-md;
+      @include flex-center;
+      flex-direction: column;
+      @include smooth-transition(background, 0.3s);
+
+      ion-icon {
+        font-size: 1.8em;
+        margin-bottom: 2px;
+        color: #000000;
+      }
+
+      ion-label {
+        font-weight: 600;
+        color: #000000;
+      }
+    }
+  }
+}

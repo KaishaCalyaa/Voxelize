@@ -1,0 +1,127 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="header-title">Management</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding-horizontal">
+  <div class="page-settings">
+
+  <!-- Section Title -->
+  <p class="section-title">Pairing & Users</p>
+
+  <!-- Pairing Card -->
+  <div class="pairing-card ion-padding">
+    <div class="card-status-area">
+      <ion-icon
+        name="bluetooth"
+        class="bluetooth-icon"
+        [ngClass]="{
+          'is-connected': bluetoothStatus === 'Connected',
+          'is-scanning': bluetoothStatus === 'Scanning'
+        }">
+      </ion-icon>
+
+      <h3>{{ bluetoothStatus }}</h3>
+      <p>{{ statusMessage }}</p>
+    </div>
+
+    <ion-button
+      expand="block"
+      color="primary"
+      class="start-pairing-btn"
+      (click)="startPairing()"
+      [disabled]="bluetoothStatus === 'Scanning'">
+      Start Pairing
+    </ion-button>
+  </div>
+
+  <!-- User Profile Section -->
+  <p class="section-title">User Profile</p>
+
+  <div class="user-card">
+    <div class="user-header">
+      <div class="user-avatar">
+        <ion-icon *ngIf="!user.photoURL" name="person-circle-outline"></ion-icon>
+        <img *ngIf="user.photoURL" [src]="user.photoURL" alt="Profile" class="avatar-image">
+      </div>
+      <h2 class="user-name">{{ user.name }}</h2>
+      <div class="user-email">{{ user.email }}</div>
+      <div class="user-role">{{ user.role }}</div>
+      <ion-button fill="clear" class="edit-btn" (click)="openUserSettings(user)">
+        <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </div>
+    
+    <div class="user-details">
+      <div class="detail-item">
+        <div class="detail-label">
+          <ion-icon name="mail-outline"></ion-icon>
+          <span>Email</span>
+        </div>
+        <div class="detail-value">{{ user.email || 'No email' }}</div>
+      </div>
+      
+      <!-- User Status with Role Information -->
+      <div class="detail-item">
+        <div class="detail-label">
+          <ion-icon [name]="getStatusIcon()"></ion-icon>
+          <span>Status</span>
+        </div>
+        <div class="detail-value status-badge" [class]="statusColor">
+          {{ displayStatus }}
+        </div>
+      </div>
+      
+      <!-- Status Description -->
+      <div class="status-description">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <span>{{ getStatusDescription() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dark Mode Toggle Section -->
+  <div class="dark-mode-toggle-section">
+    <div class="dark-mode-header">
+      <div class="dark-mode-info">
+        <h4>Dark Mode</h4>
+        <p class="dark-mode-description">Switch between light and dark appearance</p>
+      </div>
+      <ion-toggle
+        [checked]="isDarkMode"
+        (ionChange)="toggleDarkMode($event)"
+        mode="ios">
+      </ion-toggle>
+    </div>
+  </div>
+
+  </div><!-- /.page-settings -->
+</ion-content>
+
+<!-- Footer Navigation -->
+<ion-footer>
+  <ion-tab-bar slot="bottom" class="custom-tab-bar">
+
+    <!-- Control = /home -->
+    <ion-tab-button tab="home" routerLink="/home">
+      <ion-icon name="bulb-outline"></ion-icon>
+      <ion-label>Control</ion-label>
+    </ion-tab-button>
+
+    <!-- Patterns = /pattern -->
+    <ion-tab-button tab="pattern" routerLink="/pattern">
+      <ion-icon name="play-outline"></ion-icon>
+      <ion-label>Patterns</ion-label>
+    </ion-tab-button>
+
+    <!-- System = /settings -->
+    <ion-tab-button tab="settings" routerLink="/settings" class="active-tab">
+      <div class="tab-active-bg">
+        <ion-icon name="settings-outline"></ion-icon>
+        <ion-label>System</ion-label>
+      </div>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-footer>

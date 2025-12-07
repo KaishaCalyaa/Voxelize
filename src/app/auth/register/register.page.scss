@@ -1,0 +1,165 @@
+// ===================================
+//         REGISTER PAGE STYLES
+// ===================================
+:host {
+  ion-content {
+    --background: #ffffff; // White background
+    --color: #2c3e50; // Dark text
+  }
+
+  ion-header {
+    ion-toolbar {
+      --background: transparent;
+      --color: #2c3e50;
+      --border-color: transparent;
+      --border-width: 0;
+      --min-height: 70px;
+    }
+  }
+
+  ion-back-button {
+    --color: var(--ion-color-primary);
+  }
+
+  // Main wrapper
+  .login-wrapper {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem;
+    background: #f8f9fa; // Light gray background
+  }
+
+  // Form container
+  .login-container {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  // Logo and title
+  .logo-container {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+
+    .app-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin: 0.5rem 0;
+      color: #3a7bd5; // Primary blue color
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h3 {
+      color: #6c757d;
+      font-weight: 500;
+      margin: 0.5rem 0 1.5rem;
+      font-size: 1.2rem;
+    }
+  }
+
+  // Login form
+  .login-form {
+    background: transparent;
+    padding: 0;
+    margin-bottom: 1.5rem;
+
+    .form-item {
+      --background: #ffffff;
+      --border-radius: 8px;
+      --padding-start: 16px;
+      --padding-end: 12px;
+      --min-height: 56px;
+      margin-bottom: 1.25rem;
+      border: 1px solid #e0e0e0;
+      transition: all 0.2s ease;
+      
+      ion-icon {
+        color: #6c757d;
+        font-size: 1.2rem;
+        margin-right: 8px;
+      }
+      
+      ion-input {
+        --padding-top: 15px;
+        --padding-bottom: 15px;
+        --color: #000000; // Black text color
+        --placeholder-color: #6c757d; // Gray placeholder
+        --placeholder-opacity: 0.8;
+      }
+      
+      &:focus-within {
+        border-color: #3a7bd5;
+        box-shadow: 0 0 0 2px rgba(58, 123, 213, 0.2);
+      }
+
+      .password-toggle {
+        color: #6c757d;
+        font-size: 1.2rem;
+        cursor: pointer;
+      }
+    }
+
+    .error-note {
+      color: #dc3545;
+      font-size: 0.85rem;
+      margin: -0.75rem 0 0.5rem 0.5rem;
+      display: block;
+      font-weight: 500;
+    }
+
+    .login-button {
+      --border-radius: 8px;
+      --padding-top: 1rem;
+      --padding-bottom: 1rem;
+      --box-shadow: none;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin: 1rem 0 0;
+      height: 48px;
+      --background: #3a7bd5;
+      --background-activated: #2a6bc9;
+      --background-focused: #2a6bc9;
+      --background-hover: #2a6bc9;
+      
+      &::part(native) {
+        box-shadow: 0 4px 12px rgba(58, 123, 213, 0.3);
+      }
+      
+      &:disabled {
+        --background: #b3c9f0;
+        --opacity: 1;
+      }
+    }
+  }
+
+  // Sign up section
+  .signup-section {
+    text-align: center;
+    margin-top: 2rem;
+    color: #6c757d;
+    font-size: 0.95rem;
+    padding: 1rem 0;
+    
+    a {
+      color: #3a7bd5;
+      font-weight: 600;
+      text-decoration: none;
+      margin-left: 0.5rem;
+      transition: all 0.2s ease;
+      
+      &:hover {
+        color: #2a6bc9;
+        text-decoration: underline;
+      }
+    }
+  }
+}

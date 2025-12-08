@@ -1,0 +1,221 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title class="header-title">
+      <ion-icon name="rocket-outline" class="header-icon"></ion-icon>
+      Modul IoT & AI
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/learning" fill="clear">
+        <ion-icon name="school-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="iot-ai-module-container">
+
+    <!-- Progress Card -->
+    <div class="progress-card">
+      <div class="progress-header">
+        <div class="progress-info">
+          <h3 class="progress-title">Progress Pembelajaran</h3>
+          <span class="progress-percentage">{{ getProgress() }}%</span>
+        </div>
+        <div class="progress-stats">
+          <span class="completed-count">{{ completedSections.size }}</span>
+          <span class="separator">/</span>
+          <span class="total-count">{{ modules.length }}</span>
+        </div>
+      </div>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="getProgress()"></div>
+        </div>
+      </div>
+
+      <p class="progress-description">
+        <ion-icon name="checkmark-circle-outline"></ion-icon>
+        {{ completedSections.size }} modul telah diselesaikan
+      </p>
+    </div>
+
+    <!-- Horizontal Stepper Progress Timeline -->
+    <div class="stepper-progress">
+      <div class="stepper-container">
+        <div
+          *ngFor="let module of modules; let i = index"
+          class="stepper-item"
+          [class.completed]="isCompleted(module.id)"
+          [class.active]="currentSection === module.id"
+          (click)="selectSection(module.id)">
+
+          <div class="stepper-circle">
+            <ion-icon *ngIf="isCompleted(module.id)" name="checkmark" class="check-icon"></ion-icon>
+            <span *ngIf="!isCompleted(module.id)">{{ i + 1 }}</span>
+          </div>
+
+          <div class="stepper-label">
+            <span class="label-text">{{ module.title }}</span>
+          </div>
+
+          <div *ngIf="i < modules.length - 1" class="stepper-line"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module Grid View (shown when no module selected or in overview mode) -->
+    <div class="module-grid-view" *ngIf="!currentSection">
+      <div class="grid-header">
+        <h2 class="grid-title">
+          <ion-icon name="grid-outline"></ion-icon>
+          Pilih Modul Pembelajaran
+        </h2>
+        <p class="grid-subtitle">Klik modul di bawah untuk memulai pembelajaran</p>
+      </div>
+
+      <div class="module-grid">
+        <div
+          *ngFor="let module of modules; let i = index"
+          class="module-card"
+          [class.completed]="isCompleted(module.id)"
+          (click)="selectSection(module.id)">
+
+          <div class="card-number">{{ i + 1 }}</div>
+
+          <div class="card-icon-wrapper">
+            <ion-icon [name]="module.icon" class="card-icon"></ion-icon>
+          </div>
+
+          <h3 class="card-title">{{ module.title }}</h3>
+          <p class="card-description">{{ module.description }}</p>
+
+          <div class="card-footer">
+            <ion-badge
+              [color]="isCompleted(module.id) ? 'success' : 'medium'"
+              class="card-badge">
+              <ion-icon
+                [name]="isCompleted(module.id) ? 'checkmark-circle' : 'radio-button-off'">
+              </ion-icon>
+              <span>{{ isCompleted(module.id) ? 'Selesai' : 'Belum Selesai' }}</span>
+            </ion-badge>
+          </div>
+
+          <div *ngIf="isCompleted(module.id)" class="completion-overlay">
+            <ion-icon name="checkmark-circle" class="completion-icon"></ion-icon>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Module Content View (shown when module selected) -->
+    <div class="module-content-view" *ngIf="currentSection && getCurrentModule()">
+
+      <!-- Back to Grid Button -->
+      <div class="back-navigation">
+        <ion-button fill="clear" (click)="backToGrid()" class="back-button">
+          <ion-icon name="grid-outline" slot="start"></ion-icon>
+          Kembali ke Daftar Modul
+        </ion-button>
+      </div>
+
+      <div class="content-card">
+
+        <!-- Module Header -->
+        <div class="module-header">
+          <div class="header-badge">
+            <ion-icon [name]="getCurrentModule()!.icon"></ion-icon>
+            <span>Modul {{ getCurrentModuleIndex() }}</span>
+          </div>
+          <h1 class="module-title">{{ getCurrentModule()!.title }}</h1>
+          <p class="module-description">{{ getCurrentModule()!.description }}</p>
+        </div>
+
+        <!-- Content Body -->
+        <div class="content-body">
+          <div class="content-html" [innerHTML]="getCurrentModule()!.content"></div>
+        </div>
+
+        <!-- Action Section -->
+        <div class="action-section">
+          <ion-button
+            expand="block"
+            [class.completed-btn]="isCompleted(getCurrentModule()!.id)"
+            [class.not-completed-btn]="!isCompleted(getCurrentModule()!.id)"
+            (click)="markComplete(getCurrentModule()!.id)"
+            [disabled]="isCompleted(getCurrentModule()!.id)"
+            class="complete-button">
+            <ion-icon
+              [name]="isCompleted(getCurrentModule()!.id) ? 'checkmark-circle' : 'checkmark-circle-outline'"
+              slot="start">
+            </ion-icon>
+            <span *ngIf="!isCompleted(getCurrentModule()!.id)">Tandai Modul Selesai</span>
+            <span *ngIf="isCompleted(getCurrentModule()!.id)">✓ Modul Telah Diselesaikan</span>
+          </ion-button>
+
+          <div class="navigation-buttons">
+            <ion-button
+              fill="outline"
+              (click)="navigateModule(-1)"
+              [disabled]="currentSection === modules[0].id"
+              class="nav-button prev-button">
+              <ion-icon name="chevron-back" slot="start"></ion-icon>
+              Modul Sebelumnya
+            </ion-button>
+
+            <ion-button
+              fill="outline"
+              (click)="navigateModule(1)"
+              [disabled]="currentSection === modules[modules.length - 1].id"
+              class="nav-button next-button">
+              Modul Selanjutnya
+              <ion-icon name="chevron-forward" slot="end"></ion-icon>
+            </ion-button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+
+<!-- Footer Navigation -->
+<ion-footer>
+  <ion-tab-bar slot="bottom" class="custom-tab-bar">
+
+    <!-- Control = /home -->
+    <ion-tab-button tab="home" routerLink="/home">
+      <ion-icon name="bulb-outline"></ion-icon>
+      <ion-label>Control</ion-label>
+    </ion-tab-button>
+
+    <!-- Patterns = /pattern -->
+    <ion-tab-button tab="pattern" routerLink="/pattern">
+      <ion-icon name="play-outline"></ion-icon>
+      <ion-label>Patterns</ion-label>
+    </ion-tab-button>
+
+    <!-- Learning = /learning -->
+    <ion-tab-button tab="learning" routerLink="/learning">
+      <ion-icon name="school-outline"></ion-icon>
+      <ion-label>Learning</ion-label>
+    </ion-tab-button>
+
+    <!-- IoT & AI Module = /iot-ai-module -->
+    <ion-tab-button tab="iot-ai-module" routerLink="/iot-ai-module" class="active-tab">
+      <div class="tab-active-bg">
+        <ion-icon name="rocket-outline"></ion-icon>
+        <ion-label>IoT & AI</ion-label>
+      </div>
+    </ion-tab-button>
+
+    <!-- System = /settings -->
+    <ion-tab-button tab="settings" routerLink="/settings">
+      <ion-icon name="settings-outline"></ion-icon>
+      <ion-label>System</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-footer>
+

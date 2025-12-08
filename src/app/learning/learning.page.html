@@ -1,0 +1,321 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title class="header-title">
+      <ion-icon name="school-outline" class="header-icon"></ion-icon>
+      Belajar Coding
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="resetExercises()" fill="clear" size="small">
+        <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+      <ion-button routerLink="/home">
+        <ion-icon name="close" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <!-- IoT & AI Module Banner -->
+  <div class="module-banner">
+    <ion-card class="module-card" routerLink="/iot-ai-module">
+      <ion-card-content>
+        <div class="banner-content">
+          <div class="banner-icon">
+            <ion-icon name="rocket-outline"></ion-icon>
+          </div>
+          <div class="banner-text">
+            <h3>📚 Modul Pembelajaran IoT & AI</h3>
+            <p>Pelajari konsep Internet of Things dan Artificial Intelligence secara lengkap</p>
+          </div>
+          <ion-icon name="chevron-forward" class="arrow-icon"></ion-icon>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <!-- Score Display -->
+  <ion-toolbar class="score-toolbar">
+    <div class="score-container">
+      <div class="score-info">
+        <ion-icon [name]="canCopyPaste ? 'lock-open-outline' : 'lock-closed-outline'" 
+                  [class]="canCopyPaste ? 'unlocked' : 'locked'"></ion-icon>
+        <span class="score-text">
+          Score: {{ totalScore }} / {{ maxScore }} ({{ getScorePercentage() }}%)
+        </span>
+        <span class="unlock-status" *ngIf="!canCopyPaste">
+          | Butuh {{ minScoreToUnlock }}% untuk unlock copy-paste
+        </span>
+        <span class="unlock-status unlocked" *ngIf="canCopyPaste">
+          | ✅ Copy-paste unlocked!
+        </span>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="learning-container">
+    
+    <!-- Progress Bar -->
+    <div class="progress-section">
+      <div class="progress-info">
+        <span class="step-counter">Step {{ currentStep + 1 }} / {{ learningSteps.length }}</span>
+        <span class="progress-percent">{{ progress | number:'1.0-0' }}%</span>
+      </div>
+      <ion-progress-bar [value]="progress / 100" color="primary"></ion-progress-bar>
+    </div>
+
+    <!-- Step Indicators -->
+    <div class="step-indicators">
+      <div 
+        *ngFor="let step of learningSteps; let i = index"
+        class="step-indicator"
+        [class.active]="i === currentStep"
+        [class.completed]="i < currentStep"
+        (click)="goToStep(i)">
+        <ion-icon [name]="step.icon"></ion-icon>
+      </div>
+    </div>
+
+    <!-- Learning Content Card -->
+    <div class="learning-card">
+      <div class="step-header">
+        <ion-icon [name]="currentStepData.icon" class="step-icon"></ion-icon>
+        <h2>{{ currentStepData.title }}</h2>
+      </div>
+
+      <div class="step-content">
+        <p class="content-text">{{ currentStepData.content }}</p>
+
+        <!-- Visual Example -->
+        <div class="visual-example" *ngIf="currentStepData.visualExample">
+          <div class="visual-box">
+            <div class="visual-before" *ngIf="currentStepData.visualExample.before">
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+              <span>{{ currentStepData.visualExample.before }}</span>
+            </div>
+            <div class="visual-description">
+              {{ currentStepData.visualExample.description }}
+            </div>
+            <div class="visual-after" *ngIf="currentStepData.visualExample.after">
+              <span>{{ currentStepData.visualExample.after }}</span>
+              <ion-icon name="arrow-forward-outline"></ion-icon>
+            </div>
+          </div>
+        </div>
+
+        <!-- Code Example -->
+        <div class="code-example" *ngIf="currentStepData.code">
+          <div class="code-header">
+            <span class="code-label">
+              <ion-icon name="code-slash-outline"></ion-icon>
+              Contoh Kode
+            </span>
+            <ion-button 
+              fill="clear" 
+              size="small"
+              (click)="copyToClipboard(currentStepData.code!)"
+              [disabled]="!canCopyPaste"
+              class="copy-button">
+              <ion-icon name="copy-outline"></ion-icon>
+              <span>Copy</span>
+            </ion-button>
+          </div>
+          <pre class="code-block"><code>{{ currentStepData.code }}</code></pre>
+          <p class="code-note" *ngIf="currentStepData.example">
+            <ion-icon name="information-circle-outline"></ion-icon>
+            {{ currentStepData.example }}
+          </p>
+        </div>
+
+        <!-- Tips Section -->
+        <div class="tips-section" *ngIf="currentStepData.tips && currentStepData.tips.length > 0">
+          <div class="tips-header">
+            <ion-icon name="bulb-outline"></ion-icon>
+            <h4>Poin Penting</h4>
+          </div>
+          <ul class="tips-list">
+            <li *ngFor="let tip of currentStepData.tips">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+              <span>{{ tip }}</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Exercise Section -->
+        <div class="exercise-section" *ngIf="currentStepData.exercise">
+          <div class="exercise-header" [class.completed]="isExerciseCompleted(currentStep)">
+            <ion-icon [name]="isExerciseCompleted(currentStep) ? 'checkmark-circle' : 'create-outline'"></ion-icon>
+            <h4>Latihan Praktik ({{ currentStepData.exercise.points }} poin)</h4>
+            <span class="exercise-badge" *ngIf="isExerciseCompleted(currentStep)">
+              ✅ Selesai (+{{ getExerciseScore(currentStep) }} poin)
+            </span>
+          </div>
+          
+          <div class="exercise-content">
+            <p class="exercise-question">{{ currentStepData.exercise.question }}</p>
+            
+            <div class="exercise-hint" *ngIf="currentStepData.exercise.hint && !isExerciseCompleted(currentStep)">
+              <ion-icon name="bulb-outline"></ion-icon>
+              <span>Hint: {{ currentStepData.exercise.hint }}</span>
+            </div>
+
+            <div class="exercise-input-container" *ngIf="!isExerciseCompleted(currentStep)">
+              <ion-textarea
+                [(ngModel)]="exerciseAnswers[currentStep]"
+                placeholder='Contoh: {"animation":1,"type":"diagonal-bounce","version":"1.0"}'
+                rows="4"
+                class="exercise-input"
+                [class.error]="exerciseResults[currentStep] && !exerciseResults[currentStep].correct">
+              </ion-textarea>
+              
+              <div class="exercise-actions">
+                <ion-button
+                  expand="block"
+                  (click)="submitExercise(currentStep)"
+                  [disabled]="!(getExerciseAnswer(currentStep) || '').trim() || isLoadingAi(currentStep)">
+                  <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+                  Submit Jawaban
+                </ion-button>
+                
+                <ion-button
+                  fill="outline"
+                  expand="block"
+                  (click)="getLearningTips(currentStep)"
+                  [disabled]="isLoadingAi(currentStep)">
+                  <ion-icon name="sparkles-outline" slot="start"></ion-icon>
+                  <ion-spinner *ngIf="isLoadingAi(currentStep)" name="crescent" slot="start"></ion-spinner>
+                  Dapatkan Tips AI
+                </ion-button>
+              </div>
+
+              <!-- AI Feedback Section -->
+              <div class="ai-feedback-section" *ngIf="hasAiFeedback(currentStep) || isLoadingAi(currentStep)">
+                <div class="ai-feedback-header">
+                  <ion-icon name="sparkles"></ion-icon>
+                  <h5>Feedback & Tips dari AI</h5>
+                </div>
+                
+                <div class="ai-feedback-content" *ngIf="isLoadingAi(currentStep)">
+                  <ion-spinner name="crescent"></ion-spinner>
+                  <p>AI sedang menganalisis...</p>
+                </div>
+                
+                <div class="ai-feedback-content" *ngIf="!isLoadingAi(currentStep) && hasAiFeedback(currentStep)">
+                  <pre class="ai-feedback-text">{{ aiFeedback[currentStep] }}</pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="exercise-explanation" *ngIf="isExerciseCompleted(currentStep)">
+              <ion-icon name="checkmark-circle"></ion-icon>
+              <p>{{ currentStepData.exercise.explanation }}</p>
+              <div class="correct-answer">
+                <strong>Jawaban yang benar:</strong>
+                <pre><code>{{ currentStepData.exercise.expectedAnswer }}</code></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="navigation-buttons">
+      <ion-button 
+        fill="outline"
+        (click)="previousStep()"
+        [disabled]="isFirstStep">
+        <ion-icon name="chevron-back-outline" slot="start"></ion-icon>
+        Sebelumnya
+      </ion-button>
+      
+      <ion-button 
+        *ngIf="!isLastStep"
+        (click)="nextStep()">
+        Selanjutnya
+        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+      </ion-button>
+      
+      <ion-button 
+        *ngIf="isLastStep"
+        routerLink="/home"
+        color="success">
+        Selesai!
+        <ion-icon name="checkmark-circle-outline" slot="end"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- Reference Section -->
+    <div class="reference-section" *ngIf="currentStep >= 5">
+      <h3 class="section-title">
+        <div>
+          <ion-icon name="library-outline"></ion-icon>
+          Daftar Lengkap Kode JSON Animasi
+        </div>
+        <span class="section-subtitle">Klik untuk copy kode JSON</span>
+      </h3>
+      
+      <div class="pattern-list">
+        <div 
+          *ngFor="let pattern of patterns"
+          class="pattern-item"
+          [class.disabled]="!canCopyPaste"
+          (click)="copyToClipboard(pattern.jsonCode!)">
+          <div class="pattern-number">{{ pattern.animNumber }}</div>
+          <div class="pattern-info">
+            <h4>{{ pattern.name }}</h4>
+            <p class="pattern-code">{{ pattern.jsonCode }}</p>
+          </div>
+          <div class="copy-action">
+            <ion-icon name="copy-outline" class="copy-icon"></ion-icon>
+            <span class="copy-text">Copy</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="reference-note">
+        <ion-icon name="information-circle-outline"></ion-icon>
+        <p>Gunakan kode JSON yang sesuai dengan animasi yang ingin kamu mainkan. Pastikan semua field sama persis!</p>
+      </div>
+    </div>
+
+  </div>
+</ion-content>
+
+<!-- Footer Navigation -->
+<ion-footer>
+  <ion-tab-bar slot="bottom" class="custom-tab-bar">
+
+    <!-- Control = /home -->
+    <ion-tab-button tab="home" routerLink="/home">
+      <ion-icon name="bulb-outline"></ion-icon>
+      <ion-label>Control</ion-label>
+    </ion-tab-button>
+
+    <!-- Patterns = /pattern -->
+    <ion-tab-button tab="pattern" routerLink="/pattern">
+      <ion-icon name="play-outline"></ion-icon>
+      <ion-label>Patterns</ion-label>
+    </ion-tab-button>
+
+    <!-- Learning = /learning -->
+    <ion-tab-button tab="learning" routerLink="/learning" class="active-tab">
+      <div class="tab-active-bg">
+        <ion-icon name="school-outline"></ion-icon>
+        <ion-label>Learning</ion-label>
+      </div>
+    </ion-tab-button>
+
+    <!-- IoT & AI Module = /iot-ai-module -->
+    <ion-tab-button tab="iot-ai-module" routerLink="/iot-ai-module">
+      <ion-icon name="rocket-outline"></ion-icon>
+      <ion-label>IoT & AI</ion-label>
+    </ion-tab-button>
+
+    <!-- System = /settings -->
+    <ion-tab-button tab="settings" routerLink="/settings">
+      <ion-icon name="settings-outline"></ion-icon>
+      <ion-label>System</ion-label>
+    </ion-tab-button>
+
+  </ion-tab-bar>
+</ion-footer>
+

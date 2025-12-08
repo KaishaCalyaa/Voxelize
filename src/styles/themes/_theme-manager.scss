@@ -6,12 +6,17 @@
 :root {
   // Default to VOXELIZE theme (Light Mode)
   --theme-primary: #{$voxelize-primary};
+  --theme-secondary: #{darken($voxelize-primary, 10%)};
   --theme-dark: #{$voxelize-dark};
   --theme-light: #{$voxelize-light};
   --theme-border: #{$voxelize-border};
   --theme-text: #{$voxelize-text};
   --theme-success: #{$voxelize-success};
   --theme-danger: #{$voxelize-danger};
+  --theme-accent: #{$voxelize-success};
+
+  // RGB values for rgba() usage
+  --theme-primary-rgb: 33, 150, 243;
 
   // Light mode specific colors
   --theme-bg: #ffffff;
@@ -24,12 +29,17 @@
 // VOXELIZE theme class (Light Mode)
 body.theme-voxelize {
   --theme-primary: #{$voxelize-primary};
+  --theme-secondary: #{darken($voxelize-primary, 10%)};
   --theme-dark: #{$voxelize-dark};
   --theme-light: #{$voxelize-light};
   --theme-border: #{$voxelize-border};
   --theme-text: #{$voxelize-text};
   --theme-success: #{$voxelize-success};
   --theme-danger: #{$voxelize-danger};
+  --theme-accent: #{$voxelize-success};
+
+  // RGB values for rgba() usage
+  --theme-primary-rgb: 33, 150, 243;
 
   // Light mode colors
   --theme-bg: #ffffff;

@@ -28,6 +28,16 @@ const routes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'learning',
+    loadChildren: () => import('./learning/learning.module').then(m => m.LearningPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'iot-ai-module',
+    loadChildren: () => import('./iot-ai-module/iot-ai-module.module').then(m => m.IotAiModulePageModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }
